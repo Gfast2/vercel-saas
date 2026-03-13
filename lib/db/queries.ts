@@ -1,7 +1,7 @@
 import { desc, and, eq, isNull } from 'drizzle-orm';
 import { db } from './drizzle';
-import { activityLogs, teamMembers, teams, users } from './schema';
-import { cookies } from 'next/headers';
+import { activityLogs, bibleDaily, teamMembers, teams, users } from './schema';
+import { cookies, headers } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
 
 export async function getUser() {
@@ -127,4 +127,12 @@ export async function getTeamForUser() {
   });
 
   return result?.team || null;
+}
+
+export async function getBibleDaily(date: string) {
+  const result = await db.query.bibleDaily.findFirst({
+    where: eq(bibleDaily.date, date)
+  });
+
+  return result || null;
 }

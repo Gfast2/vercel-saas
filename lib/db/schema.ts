@@ -43,6 +43,12 @@ export const teamMembers = pgTable('team_members', {
   joinedAt: timestamp('joined_at').notNull().defaultNow(),
 });
 
+export const bibleDaily = pgTable('bible_daily', {
+  id: serial('id').primaryKey(),
+  date: varchar('date', { length: 255 }).notNull(),
+  contents: varchar('contents', { length: 255 }).notNull(),
+});
+
 export const activityLogs = pgTable('activity_logs', {
   id: serial('id').primaryKey(),
   teamId: integer('team_id')
