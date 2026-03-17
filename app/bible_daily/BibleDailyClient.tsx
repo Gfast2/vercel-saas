@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { Check, Copy } from 'lucide-react';
 import Link from 'next/link';
 
 export type Reading = {
@@ -67,10 +68,19 @@ export default function BibleDailyClient({
   }, [readings, selectedLabel]);
 
   const selectedDateWithWeek = formatDateWithWeek(selectedDate);
+  const [copied, setCopied] = useState(false);
 
   const formattedReadingContent = selectedReading
     ? `读经日程\n${selectedDateWithWeek}\n${selectedReading.passage}`
     : '';
+
+  const copyToClipboard = async () => {
+    if (!formattedReadingContent) return;
+
+    await navigator.clipboard.writeText(formattedReadingContent);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <main className="min-h-[100dvh] bg-gray-50 py-16">
@@ -99,9 +109,6 @@ export default function BibleDailyClient({
                 <h2 className="text-xl font-semibold text-gray-900">
                   读经日程
                 </h2>
-                <p className="mt-1 text-sm text-gray-500">
-                  {selectedDateWithWeek}
-                </p>
               </div>
               <div className="flex items-center gap-2">
                 <label className="text-sm font-medium text-gray-700" htmlFor="reading-date">
@@ -118,20 +125,40 @@ export default function BibleDailyClient({
                 />
               </div>
             </div>
-
+            <div>
+              <p className="text-sm text-gray-500">{selectedReading?.date}</p>
+              <p className="mt-1 text-lg font-medium text-gray-800">
+                {selectedReading?.passage}
+              </p>
+            </div>
+            
             {selectedReading ? (
-              <>
-                <p className="text-sm text-gray-500">{selectedReading.date}</p>
-                <p className="mt-1 text-lg font-medium text-gray-800">
-                  {selectedReading.passage}
-                </p>
-                <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
-                  <pre className="whitespace-pre-wrap text-sm text-gray-800">
-                    {formattedReadingContent}
-                  </pre>
-                </div>
-              </>
-              
+              <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                <button
+                  type="button"
+                  onClick={copyToClipboard}
+                  className="group w-full text-left"
+                >
+                  <div className="flex items-start justify-between">
+                    <pre className="whitespace-pre-wrap text-sm text-gray-800">
+                      {formattedReadingContent}
+                    </pre>
+                    <span className="inline-flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 focus:outline-none group-focus:ring-2 group-focus:ring-orange-500">
+                      {copied ? (
+                        <>
+                          <Check className="h-4 w-4" />
+                          Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-4 w-4" />
+                          Copy
+                        </>
+                      )}
+                    </span>
+                  </div>
+                </button>
+              </div>
             ) : (
               <p className="mt-6 text-sm text-gray-500">
                 No reading configured for this date.
