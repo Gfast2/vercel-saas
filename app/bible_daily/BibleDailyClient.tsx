@@ -24,6 +24,16 @@ function toLabelFromIso(dateIso: string) {
   return `${date.getMonth() + 1}月${date.getDate()}日`;
 }
 
+function formatDateWithWeek(dateIso: string) {
+  const date = new Date(dateIso);
+  if (Number.isNaN(date.getTime())) return '';
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const weekday = new Intl.DateTimeFormat('zh-CN', { weekday: 'long' }).format(date);
+  return `${yyyy}-${mm}-${dd} ${weekday}`;
+}
+
 export default function BibleDailyClient({
   readings
 }: {
@@ -56,6 +66,12 @@ export default function BibleDailyClient({
     return readings.find((reading) => reading.date === selectedLabel);
   }, [readings, selectedLabel]);
 
+  const selectedDateWithWeek = formatDateWithWeek(selectedDate);
+
+  const formattedReadingContent = selectedReading
+    ? `读经日程\n${selectedDateWithWeek}\n${selectedReading.passage}`
+    : '';
+
   return (
     <main className="min-h-[100dvh] bg-gray-50 py-16">
       <div className="max-w-4xl mx-auto px-4">
@@ -81,10 +97,10 @@ export default function BibleDailyClient({
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  Selected reading
+                  读经日程
                 </h2>
                 <p className="mt-1 text-sm text-gray-500">
-                  Pick a date to see the reading for that day.
+                  {selectedDateWithWeek}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -104,12 +120,18 @@ export default function BibleDailyClient({
             </div>
 
             {selectedReading ? (
-              <div className="mt-6">
+              <>
                 <p className="text-sm text-gray-500">{selectedReading.date}</p>
                 <p className="mt-1 text-lg font-medium text-gray-800">
                   {selectedReading.passage}
                 </p>
-              </div>
+                <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+                  <pre className="whitespace-pre-wrap text-sm text-gray-800">
+                    {formattedReadingContent}
+                  </pre>
+                </div>
+              </>
+              
             ) : (
               <p className="mt-6 text-sm text-gray-500">
                 No reading configured for this date.
