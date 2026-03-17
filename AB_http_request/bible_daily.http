@@ -1,1 +1,6 @@
+
 GET http://localhost:3000/api/bible_daily?date=3月17日
+
+###
+
+GET https://vercel-saas-sand.vercel.app/api/bible_daily?date=3月16日
