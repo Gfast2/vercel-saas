@@ -4,6 +4,7 @@ import {
   varchar,
   text,
   timestamp,
+  date,
   integer,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
@@ -17,6 +18,17 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
   deletedAt: timestamp('deleted_at'),
+});
+
+export const rosters = pgTable('rosters', {
+  id: serial('id').primaryKey(),
+  date: date('date')
+    .notNull()
+    .defaultNow(),
+  name: varchar('name', { length: 100 }).notNull(),
+  service: varchar('service', { length: 100 }).notNull(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
 });
 
 export const teams = pgTable('teams', {

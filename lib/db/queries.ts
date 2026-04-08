@@ -1,6 +1,6 @@
-import { desc, and, eq, isNull } from 'drizzle-orm';
+import { desc, and, eq, isNull, asc } from 'drizzle-orm';
 import { db } from './drizzle';
-import { activityLogs, bibleDaily, teamMembers, teams, users } from './schema';
+import { activityLogs, bibleDaily, teamMembers, teams, users, rosters } from './schema';
 import { cookies, headers } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
 
@@ -135,4 +135,23 @@ export async function getBibleDaily(date: string) {
   });
 
   return result || null;
+}
+
+export async function getRosterByDateAndService(date: string, service: string) {
+  const result = await db.query.rosters.findFirst({
+    where: and(eq(rosters.date, date), eq(rosters.service, service))
+  });
+
+  return result || null;
+}
+
+export async function getAllRosterDates() {
+  const result = await db
+    .selectDistinct({
+      date: rosters.date,
+    })
+    .from(rosters)
+    .orderBy(asc(rosters.date));
+
+  return result.map(r => r.date);
 }

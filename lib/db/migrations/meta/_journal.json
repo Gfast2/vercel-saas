@@ -15,6 +15,20 @@
       "when": 1773671993418,
       "tag": "0001_solid_sue_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1775837185023,
+      "tag": "0002_mighty_chimera",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1775883810111,
+      "tag": "0003_lucky_mad_thinker",
+      "breakpoints": true
     }
   ]
 }
