@@ -127,7 +127,7 @@ export function RosterClient({ initialDates, initialDay, initialRosterMap }: Ros
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between flex-wrap mb-8 gap-1">
           <h1 className="text-4xl font-bold text-slate-800">Roster</h1>
           <div className="flex items-center gap-3 bg-white rounded-lg shadow-md p-2 relative">
             <button 
@@ -188,58 +188,58 @@ export function RosterClient({ initialDates, initialDay, initialRosterMap }: Ros
             )}
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-white rounded-lg shadow-lg overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="bg-gradient-to-r from-blue-600 to-blue-700">
-                <th className="px-6 py-4 text-left font-semibold text-white">事工</th>
-                <th className="px-6 py-4 text-left font-semibold text-white">{day}</th>
+                <th className="w-24 sm:w-32 px-4 sm:px-6 py-4 text-left font-semibold text-white whitespace-nowrap">事工</th>
+                <th className="px-4 sm:px-6 py-4 text-left font-semibold text-white">{day}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">讲员</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['讲员'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">讲员</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['讲员'] || '-'}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">司会</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['司会'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">司会</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['司会'] || '-'}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">口译</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['口译'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">口译</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['口译'] || '-'}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">司琴</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['司琴'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">司琴</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['司琴'] || '-'}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">投影</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['投影'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">投影</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['投影'] || '-'}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">音响</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['音响'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">音响</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['音响'] || '-'}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">录音</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['主日录音'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">录音</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['主日录音'] || '-'}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">周报</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['周报'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">周报</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['周报'] || '-'}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">图书馆</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['图书馆1'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">图书馆</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['图书馆1'] || '-'}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">祷告会</td>
-                <td className="px-6 py-4 text-slate-600">{rosterMap['祷告会'] || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">祷告会</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['祷告会'] || '-'}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
-                <td className="px-6 py-4 font-medium text-slate-700">圣餐</td>
-                <td className="px-6 py-4 text-slate-600">{圣餐 || '-'}</td>
+                <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">圣餐</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{圣餐 || '-'}</td>
               </tr>
             </tbody>
           </table>
