@@ -124,6 +124,14 @@ export function RosterClient({ initialDates, initialDay, initialRosterMap }: Ros
 
   const 圣餐 = [rosterMap['圣餐辅助1'], rosterMap['圣餐辅助2'], rosterMap['圣餐辅助3'], rosterMap['圣餐辅助4']].filter(name => name).join(', ');
 
+  const SkeletonLoader = () => (
+    <div className="h-5 bg-slate-200 rounded animate-pulse w-3/4"></div>
+  );
+
+  const renderCell = (value: string | null) => (
+    isPending ? <SkeletonLoader /> : <span>{value || '-'}</span>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
       <div className="max-w-4xl mx-auto">
@@ -199,47 +207,47 @@ export function RosterClient({ initialDates, initialDay, initialRosterMap }: Ros
             <tbody className="divide-y divide-slate-200">
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">讲员</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['讲员'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['讲员'])}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">司会</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['司会'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['司会'])}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">口译</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['口译'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['口译'])}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">司琴</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['司琴'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['司琴'])}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">投影</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['投影'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['投影'])}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">音响</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['音响'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['音响'])}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">录音</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['主日录音'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['主日录音'])}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">周报</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['周报'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['周报'])}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">图书馆</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['图书馆1'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['图书馆1'])}</td>
               </tr>
               <tr className="bg-slate-50 hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">祷告会</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{rosterMap['祷告会'] || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(rosterMap['祷告会'])}</td>
               </tr>
               <tr className="hover:bg-blue-50 transition-colors">
                 <td className="w-24 sm:w-32 px-4 sm:px-6 py-4 font-medium text-slate-700 whitespace-nowrap">圣餐</td>
-                <td className="px-4 sm:px-6 py-4 text-slate-600">{圣餐 || '-'}</td>
+                <td className="px-4 sm:px-6 py-4 text-slate-600">{renderCell(圣餐)}</td>
               </tr>
             </tbody>
           </table>
