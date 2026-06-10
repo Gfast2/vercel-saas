@@ -1,5 +1,5 @@
 import { desc, and, eq, isNull, asc } from 'drizzle-orm';
-import { db } from './drizzle';
+import { db, client } from './drizzle';
 import { activityLogs, bibleDaily, teamMembers, teams, users, rosters } from './schema';
 import { cookies, headers } from 'next/headers';
 import { verifyToken } from '@/lib/auth/session';
@@ -154,4 +154,19 @@ export async function getAllRosterDates() {
     .orderBy(asc(rosters.date));
 
   return result.map(r => r.date);
+}
+
+export async function getMonthlyRosterStats(yearMonth: string) {
+  // yearMonth should be in format 'YYYY-MM'
+  const result = await client`
+    SELECT
+      name,
+      COUNT(*) AS service_count
+    FROM rosters
+    WHERE TO_CHAR(date, 'YYYY-MM') = ${yearMonth}
+    GROUP BY name
+    ORDER BY service_count DESC
+  `;
+
+  return result as any as Array<{ name: string; service_count: number }>;
 }

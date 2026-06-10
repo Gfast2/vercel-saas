@@ -1,8 +1,19 @@
+import { redirect } from 'next/navigation';
+import { getUser, getMonthlyRosterStats } from '@/lib/db/queries';
+import { StatMonthlyClient } from './StatMonthlyClient';
+
 export default async function StatMonthlyPage() {
-  return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Monthly Statistics</h1>
-      <p>Monthly statistics will be displayed here.</p>
-    </div>
-  );
+  const user = await getUser();
+  if (!user) {
+    redirect('/sign-in');
+  }
+
+  // Get current month in YYYY-MM format
+  const now = new Date();
+  const currentMonth = now.toISOString().slice(0, 7);
+
+  // Fetch initial data for current month
+  const initialData = await getMonthlyRosterStats(currentMonth);
+
+  return <StatMonthlyClient initialData={initialData} initialMonth={currentMonth} />;
 }   
