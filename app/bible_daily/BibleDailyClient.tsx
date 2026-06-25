@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Check, Copy } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Copy } from 'lucide-react';
 import Link from 'next/link';
 
 export type Reading = {
@@ -70,6 +70,28 @@ export default function BibleDailyClient({
   const selectedDateWithWeek = formatDateWithWeek(selectedDate);
   const [copied, setCopied] = useState(false);
 
+  const adjustDate = (days: number) => {
+    const parts = selectedDate.split('-');
+    if (parts.length !== 3) return;
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    const date = new Date(year, month, day);
+    if (Number.isNaN(date.getTime())) return;
+
+    date.setDate(date.getDate() + days);
+
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    const newDateIso = `${yyyy}-${mm}-${dd}`;
+
+    if (minDate && newDateIso < minDate) return;
+    if (maxDate && newDateIso > maxDate) return;
+
+    setSelectedDate(newDateIso);
+  };
+
   const formattedReadingContent = selectedReading
     ? `读经日程\n${selectedDateWithWeek}\n${selectedReading.passage}`
     : '';
@@ -114,15 +136,35 @@ export default function BibleDailyClient({
                 <label className="text-sm font-medium text-gray-700" htmlFor="reading-date">
                   Date
                 </label>
-                <input
-                  id="reading-date"
-                  type="date"
-                  className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-                  value={selectedDate}
-                  min={minDate}
-                  max={maxDate}
-                  onChange={(event) => setSelectedDate(event.target.value)}
-                />
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => adjustDate(-1)}
+                    disabled={minDate ? selectedDate <= minDate : false}
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Previous day"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  <input
+                    id="reading-date"
+                    type="date"
+                    className="h-9 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+                    value={selectedDate}
+                    min={minDate}
+                    max={maxDate}
+                    onChange={(event) => setSelectedDate(event.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => adjustDate(1)}
+                    disabled={maxDate ? selectedDate >= maxDate : false}
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Next day"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
             </div>
             <div>
