@@ -132,11 +132,8 @@ export default function BibleDailyClient({
                   读经日程
                 </h2>
               </div>
-              <div className="flex items-center gap-2">
-                <label className="text-sm font-medium text-gray-700" htmlFor="reading-date">
-                  Date
-                </label>
-                <div className="flex items-center gap-1">
+              <div className="flex items-center justify-center-safe">
+                <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => adjustDate(-1)}
@@ -168,7 +165,7 @@ export default function BibleDailyClient({
               </div>
             </div>
             <div>
-              <p className="text-sm text-gray-500">{selectedReading?.date}</p>
+              <p className="text-sm text-gray-500 mt-7">{selectedReading?.date}</p>
               <p className="mt-1 text-lg font-medium text-gray-800">
                 {selectedReading?.passage}
               </p>
